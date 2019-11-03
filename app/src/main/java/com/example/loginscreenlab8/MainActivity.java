@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         final EditText loginEditText = findViewById(R.id.login_edit_text);
         final EditText passwordEditText = findViewById(R.id.password_edit_text);
         final Button authButton = findViewById(R.id.authenticate_button);
-        final TextView authErrorTextView  = findViewById(R.id.auth_error_text);
+        final TextView authErrorTextView = findViewById(R.id.auth_error_text);
 
         authErrorTextView.setVisibility(View.INVISIBLE);
 
@@ -39,6 +39,25 @@ public class MainActivity extends AppCompatActivity {
         final int primaryColor = arr.getColor(0, -1);
         arr.recycle();
 
+        TextWatcher loginAndPasswordTextWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                loginEditText.setTextColor(primaryColor);
+                passwordEditText.setTextColor(primaryColor);
+                authErrorTextView.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+
 
         authButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,8 +69,7 @@ public class MainActivity extends AppCompatActivity {
                     loginEditText.setTextColor(0xFFFF0000);
                     passwordEditText.setTextColor(0xFFFF0000);
 
-                }
-                else {
+                } else {
                     Toast.makeText(MainActivity.this, "Authentication is successful", Toast.LENGTH_LONG).show();
                 }
 
@@ -59,42 +77,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        loginEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                loginEditText.setTextColor(primaryColor);
-                passwordEditText.setTextColor(primaryColor);
-                authErrorTextView.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        passwordEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                loginEditText.setTextColor(primaryColor);
-                passwordEditText.setTextColor(primaryColor);
-                authErrorTextView.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        loginEditText.addTextChangedListener(loginAndPasswordTextWatcher);
+        passwordEditText.addTextChangedListener(loginAndPasswordTextWatcher);
     }
 }
