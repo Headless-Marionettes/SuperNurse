@@ -1,0 +1,1 @@
+Test instructions: Login: UserPassword: passwordOn Successful Login Ð Toast message is shownOn Unsuccessful Login Ð Inline error message is shown
