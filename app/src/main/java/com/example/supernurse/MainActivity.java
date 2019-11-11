@@ -18,13 +18,19 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.supernurse.server_connection.ServerRequestQueue;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity {
 
-    public static final String TAG = "SuperNurseTag";
+    public static final String TAG = "AdminPatientsList";
     RequestQueue queue;
 
     @Override
@@ -95,29 +101,48 @@ public class MainActivity extends AppCompatActivity {
         passwordEditText.addTextChangedListener(loginAndPasswordTextWatcher);
 
 
-        String url ="http://www.google.com";
-
+        //STRING REQUEST
+//        String url ="http://www.google.com";
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.GET, url,
-                new Response.Listener<String>() {
+//        StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.GET, url,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        // Display the first 500 characters of the response string.
+//                        authErrorTextView.setText("Response is: "+ response.substring(0,500));
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                authErrorTextView.setText("That didn't work!");
+//            }
+//        });
+
+        ////JSON REQUEST
+        String url = "http://jsonplaceholder.typicode.com/users";
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
                     @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        authErrorTextView.setText("Response is: "+ response.substring(0,500));
+                    public void onResponse(JSONArray response) {
+                        authErrorTextView.setText("Response: " + response.toString());
                     }
                 }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                authErrorTextView.setText("That didn't work!");
-            }
-        });
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        authErrorTextView.setText(error.getMessage());
+
+                    }
+                });
 
         // Set the tag on the request.
-        stringRequest.setTag(TAG);
+        jsonObjectRequest.setTag(TAG);
 
        // Add the request to the RequestQueue.
-        ServerRequestQueue.getInstance(this).addToRequestQueue(stringRequest);
+        ServerRequestQueue.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
+
 
     @Override
     protected void onStop () {
