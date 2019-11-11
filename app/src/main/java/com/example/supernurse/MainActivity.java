@@ -20,14 +20,21 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.supernurse.server_connection.ServerRequestQueue;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final String TAG = "SuperNurseTag";
+    RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Instantiate the RequestQueue.
+        queue = ServerRequestQueue.getInstance(this.getApplicationContext()).
+                getRequestQueue();
 
         final EditText loginEditText = findViewById(R.id.login_edit_text);
         final EditText passwordEditText = findViewById(R.id.password_edit_text);
@@ -88,9 +95,6 @@ public class MainActivity extends AppCompatActivity {
         passwordEditText.addTextChangedListener(loginAndPasswordTextWatcher);
 
 
-
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
         String url ="http://www.google.com";
 
         // Request a string response from the provided URL.
@@ -108,7 +112,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Set the tag on the request.
+        stringRequest.setTag(TAG);
+
        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
+        ServerRequestQueue.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+    @Override
+    protected void onStop () {
+        super.onStop();
+        if (ServerRequestQueue.getInstance(this).getRequestQueue() != null) {
+            ServerRequestQueue.getInstance(this).getRequestQueue().cancelAll(TAG);
+        }
     }
 }
