@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -90,31 +89,36 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //getting email and password from editText
                 String email = loginEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 
                 try {
+                    //create body for the request
                     JSONObject jsonBody = new JSONObject();
                     jsonBody.put("email", email);
                     jsonBody.put("password", password);
                     final String mRequestBody = jsonBody.toString();
 
+                    //using below url to sending the request
                     String url = "http://10.0.2.2:5000/auth/sign_in";
                     JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, null,
                             new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
-                                    // response
-                                    JSONObject resp = response;
-                                    if (resp.has("token")) {
-                                        try {
-                                            String token = resp.getString("token");
-                                            SharedPreferences myPreference = getSharedPreferences("UserSharedPreferences", 0);
 
+                                    // Check if response has a token
+                                    if (response.has("token")) {
+                                        try {
+                                            String token = response.getString("token");
+
+                                            //Storing token in shared preferences
+                                            SharedPreferences myPreference = getSharedPreferences("UserSharedPreferences", 0);
                                             SharedPreferences.Editor prefEditor = myPreference.edit();
                                             prefEditor.putString("token", token);
                                             prefEditor.apply();
 
+                                            //Starting new intent
                                             Intent patients = new Intent(MainActivity.this, AdminPatientsListActivity.class);
                                             startActivity(patients);
 
@@ -123,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                     } else {
                                         SharedPreferences myPreference = getSharedPreferences("UserSharedPreferences", 0);
-
                                         SharedPreferences.Editor prefEditor = myPreference.edit();
                                         prefEditor.putString("token", "");
                                         prefEditor.apply();
@@ -216,21 +219,6 @@ public class MainActivity extends AppCompatActivity {
 //
 //                    }
 //                });
-
-
-//        GsonRequest<Patient[]> myReq = new GsonRequest<>(url, Patient[].class, null, new Response.Listener<Patient[]>() {
-//            @Override
-//            public void onResponse(Patient[] response) {
-//                List<Patient> list = Arrays.asList(response);
-//                Log.i("NAME!!!!!!", list.get(0).getName());
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.e("ERROR", error.getMessage());
-//            }
-//        });
-//
     }
 
     @Override

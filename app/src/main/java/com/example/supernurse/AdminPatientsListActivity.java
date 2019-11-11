@@ -12,11 +12,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.supernurse.models.Patient;
 import com.example.supernurse.server_connection.GsonRequest;
-import com.example.supernurse.server_connection.PatientsArrayAdapter;
 import com.example.supernurse.server_connection.ServerRequestQueue;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,19 +31,22 @@ public class AdminPatientsListActivity extends AppCompatActivity {
         //Creates reference of ListView
         ListView listview = findViewById(R.id.patientsList);
 
-        //Access token
+        //Access token from shared pref
         SharedPreferences myPref = getSharedPreferences("UserSharedPreferences", MODE_PRIVATE);
-        final String token = myPref.getString("token", "");
+        final String token = "JWT " + myPref.getString("token", "");
 
 
-        List<Patient> patients = new ArrayList();
+        final List<Patient> patients = new ArrayList();
+
+        //Using below url to request patients list
         String url = "http://10.0.2.2:5000/patients";
 
         GsonRequest<Patient[]> patientsRequest = new GsonRequest<Patient[]>(url, Patient[].class, null, new Response.Listener<Patient[]>() {
             @Override
             public void onResponse(Patient[] response) {
-                List<Patient> patients = Arrays.asList(response);
-                patients.size();
+                for (Patient p : response) {
+                    patients.add(p);
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -67,7 +68,7 @@ public class AdminPatientsListActivity extends AppCompatActivity {
         // Add the request to the RequestQueue.
         ServerRequestQueue.getInstance(this).addToRequestQueue(patientsRequest);
 
-        //Creating adapter variable and passing carIds array
+        //Creating adapter variable and passing patients array
         PatientsArrayAdapter adapter = new PatientsArrayAdapter(this, patients);
         listview.setAdapter(adapter);
     }

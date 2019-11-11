@@ -1,4 +1,4 @@
-package com.example.supernurse.server_connection;
+package com.example.supernurse;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,8 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-
-import com.example.supernurse.R;
 import com.example.supernurse.models.Patient;
 import java.util.List;
 
@@ -35,8 +33,11 @@ public class PatientsArrayAdapter extends ArrayAdapter<Patient> {
 
         //Assigning row UI elements to appropriate references
         TextView textViewName = (TextView) rowView.findViewById(R.id.name);
-        //Assigning Order data to UI elements
-        textViewName.setText(patients.get(position).getName());
+        TextView textViewLastName = (TextView) rowView.findViewById(R.id.last_name);
+
+        //Assigning Patients data to UI elements
+        textViewName.setText(patients.get(position).getFirst_name());
+        textViewLastName.setText(patients.get(position).getLast_name());
         return rowView;
     }
 }
