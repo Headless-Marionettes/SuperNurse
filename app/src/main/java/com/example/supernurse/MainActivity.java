@@ -7,6 +7,7 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -18,15 +19,12 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.Request;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.example.supernurse.models.Patient;
+import com.example.supernurse.server_connection.GsonRequest;
 import com.example.supernurse.server_connection.ServerRequestQueue;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -118,31 +116,44 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        ////JSON REQUEST
+//        ////JSON REQUEST
         String url = "http://jsonplaceholder.typicode.com/users";
-        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+//        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
+//                (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+//
+//                    @Override
+//                    public void onResponse(JSONArray response) {
+//                        authErrorTextView.setText("Response: " + response.toString());
+//                    }
+//                }, new Response.ErrorListener() {
+//
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        authErrorTextView.setText(error.getMessage());
+//
+//                    }
+//                });
 
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        authErrorTextView.setText("Response: " + response.toString());
-                    }
-                }, new Response.ErrorListener() {
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        authErrorTextView.setText(error.getMessage());
-
-                    }
-                });
+        GsonRequest<Patient[]> myReq = new GsonRequest<>(url, Patient[].class, null, new Response.Listener<Patient[]>() {
+            @Override
+            public void onResponse(Patient[] response) {
+                List<Patient> list = Arrays.asList(response);
+                Log.i("NAME!!!!!!", list.get(0).getName());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("ERROR", error.getMessage());
+            }
+        });
 
         // Set the tag on the request.
-        jsonObjectRequest.setTag(TAG);
+        myReq.setTag(TAG);
 
        // Add the request to the RequestQueue.
-        ServerRequestQueue.getInstance(this).addToRequestQueue(jsonObjectRequest);
+        ServerRequestQueue.getInstance(this).addToRequestQueue(myReq);
     }
-
 
     @Override
     protected void onStop () {
