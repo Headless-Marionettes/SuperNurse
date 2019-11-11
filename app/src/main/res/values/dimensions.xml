@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Typography-->
+    <dimen name="activityTitle">30sp</dimen>
+    <dimen name="largeCopy">20sp</dimen>
+    <dimen name="copy">16sp</dimen>
+    <dimen name="smallCopy">12sp</dimen>
+
+    <!--    Spacing Global-->
+    <dimen name="delimeterHeight">1dp</dimen>
+
+    <dimen name="xsmallSpacing">5dp</dimen>
+    <dimen name="smallSpacing">10dp</dimen>
+    <dimen name="mediumSpacing">15dp</dimen>
+    <dimen name="baseSpacing">20dp</dimen>
+
+    <dimen name="largeSpacing">40dp</dimen>
+    <dimen name="xlargeSpacing">60dp</dimen>
+    <dimen name="xxlargeSpacing">90dp</dimen>
+
+</resources>
