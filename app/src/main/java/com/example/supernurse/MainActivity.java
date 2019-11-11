@@ -2,6 +2,7 @@ package com.example.supernurse;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -16,16 +17,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.supernurse.models.Patient;
-import com.example.supernurse.server_connection.GsonRequest;
 import com.example.supernurse.server_connection.ServerRequestQueue;
 
 import org.json.JSONException;
@@ -39,8 +36,10 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String TAG = "AdminPatientsList";
+    public static final String TAG = "Login";
     RequestQueue queue;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +114,9 @@ public class MainActivity extends AppCompatActivity {
                                             SharedPreferences.Editor prefEditor = myPreference.edit();
                                             prefEditor.putString("token", token);
                                             prefEditor.apply();
+
+                                            Intent patients = new Intent(MainActivity.this, AdminPatientsListActivity.class);
+                                            startActivity(patients);
 
                                         } catch (JSONException e) {
                                             e.printStackTrace();
