@@ -2,6 +2,7 @@ package com.example.supernurse;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -16,15 +17,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.supernurse.models.Patient;
 import com.example.supernurse.server_connection.GsonRequest;
 import com.example.supernurse.server_connection.ServerRequestQueue;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -76,19 +87,89 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-
         authButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!loginEditText.getText().toString().equals("User")
-                        || !passwordEditText.getText().toString().equals("password")) {
 
-                    authErrorTextView.setVisibility(View.VISIBLE);
-                    loginEditText.setTextColor(0xFFFF0000);
-                    passwordEditText.setTextColor(0xFFFF0000);
+                String email = loginEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
 
-                } else {
-                    Toast.makeText(MainActivity.this, "Authentication is successful", Toast.LENGTH_LONG).show();
+                try {
+                    JSONObject jsonBody = new JSONObject();
+                    jsonBody.put("email", email);
+                    jsonBody.put("password", password);
+                    final String mRequestBody = jsonBody.toString();
+
+                    String url = "http://10.0.2.2:5000/auth/sign_in";
+                    JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    // response
+                                    JSONObject resp = response;
+                                    if (resp.has("token")) {
+                                        try {
+                                            String token = resp.getString("token");
+                                            SharedPreferences myPreference = getSharedPreferences("UserSharedPreferences", 0);
+
+                                            SharedPreferences.Editor prefEditor = myPreference.edit();
+                                            prefEditor.putString("token", token);
+                                            prefEditor.apply();
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    } else {
+                                        SharedPreferences myPreference = getSharedPreferences("UserSharedPreferences", 0);
+
+                                        SharedPreferences.Editor prefEditor = myPreference.edit();
+                                        prefEditor.putString("token", "");
+                                        prefEditor.apply();
+
+                                        authErrorTextView.setVisibility(View.VISIBLE);
+                                        authErrorTextView.setText("CREDENTAILS ARE INVALID");
+                                    }
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    // error
+                                    Log.d("Error.Response", "REQUEST FAILED");
+                                    authErrorTextView.setText("WRONG RESPONSE");
+                                    authErrorTextView.setVisibility(View.VISIBLE);
+
+                                    SharedPreferences myPreference = getSharedPreferences("UserSharedPreferences", 0);
+                                    SharedPreferences.Editor prefEditor = myPreference.edit();
+                                    prefEditor.putString("token", "");
+                                    prefEditor.apply();
+                                }
+                            }
+                    ) {
+                        @Override
+                        public String getBodyContentType() {
+                            return "application/json; charset=utf-8";
+                        }
+
+                        @Override
+                        public byte[] getBody() {
+                            try {
+                                return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
+                            } catch (UnsupportedEncodingException uee) {
+                                VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
+                                return null;
+                            }
+                        }
+                    };
+
+                    // Set the tag on the request.
+                    postRequest.setTag(TAG);
+
+                    // Add the request to the RequestQueue.
+                    ServerRequestQueue.getInstance(MainActivity.this).addToRequestQueue(postRequest);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
 
             }
@@ -117,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
 //        ////JSON REQUEST
-        String url = "http://jsonplaceholder.typicode.com/users";
+        //       String url = "http://jsonplaceholder.typicode.com/users";
 //        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
 //                (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
 //
@@ -135,28 +216,23 @@ public class MainActivity extends AppCompatActivity {
 //                });
 
 
-        GsonRequest<Patient[]> myReq = new GsonRequest<>(url, Patient[].class, null, new Response.Listener<Patient[]>() {
-            @Override
-            public void onResponse(Patient[] response) {
-                List<Patient> list = Arrays.asList(response);
-                Log.i("NAME!!!!!!", list.get(0).getName());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("ERROR", error.getMessage());
-            }
-        });
-
-        // Set the tag on the request.
-        myReq.setTag(TAG);
-
-       // Add the request to the RequestQueue.
-        ServerRequestQueue.getInstance(this).addToRequestQueue(myReq);
+//        GsonRequest<Patient[]> myReq = new GsonRequest<>(url, Patient[].class, null, new Response.Listener<Patient[]>() {
+//            @Override
+//            public void onResponse(Patient[] response) {
+//                List<Patient> list = Arrays.asList(response);
+//                Log.i("NAME!!!!!!", list.get(0).getName());
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.e("ERROR", error.getMessage());
+//            }
+//        });
+//
     }
 
     @Override
-    protected void onStop () {
+    protected void onStop() {
         super.onStop();
         if (ServerRequestQueue.getInstance(this).getRequestQueue() != null) {
             ServerRequestQueue.getInstance(this).getRequestQueue().cancelAll(TAG);
