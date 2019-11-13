@@ -29,7 +29,8 @@ public class AdminPatientsListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_patients_list);
 
         //Creates reference of ListView
-        ListView listview = findViewById(R.id.patientsList);
+        final ListView listview = findViewById(R.id.patientsList);
+
 
         //Access token from shared pref
         SharedPreferences myPref = getSharedPreferences("UserSharedPreferences", MODE_PRIVATE);
@@ -47,6 +48,10 @@ public class AdminPatientsListActivity extends AppCompatActivity {
                 for (Patient p : response) {
                     patients.add(p);
                 }
+
+                //Creating adapter variable and passing patients array
+                PatientsArrayAdapter adapter = new PatientsArrayAdapter(AdminPatientsListActivity.this, patients);
+                listview.setAdapter(adapter);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -67,9 +72,5 @@ public class AdminPatientsListActivity extends AppCompatActivity {
 
         // Add the request to the RequestQueue.
         ServerRequestQueue.getInstance(this).addToRequestQueue(patientsRequest);
-
-        //Creating adapter variable and passing patients array
-        PatientsArrayAdapter adapter = new PatientsArrayAdapter(this, patients);
-        listview.setAdapter(adapter);
     }
 }
