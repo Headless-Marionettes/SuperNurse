@@ -15,4 +15,12 @@
         android:text="@+id/name"
         android:textSize="@dimen/largeCopy"/>
 
+    <TextView
+        android:id="@+id/last_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/name"
+        android:paddingLeft="@dimen/smallSpacing"
+        android:text="@+id/last_name"
+        android:textSize="@dimen/largeCopy"/>
 </RelativeLayout>

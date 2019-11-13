@@ -3,58 +3,43 @@ package com.example.supernurse.models;
 import com.google.gson.annotations.SerializedName;
 
 public class Patient {
-  //  @SerializedName("title")
-    String name;
-    String body;
-    long id;
 
-    long userId;
+    //  @SerializedName("title")
+    String first_name;
+    String last_name;
+    String _id;
+
+    public Patient(String first_name, String last_name, String _id) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this._id = _id;
+    }
 
     public Patient() {
     }
 
-    public Patient(long id, String name) {
-        this.id = id;
-        this.name = name;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public Patient(String name, String body, long id, long userId) {
-        this.name = name;
-        this.body = body;
-        this.id = id;
-        this.userId = userId;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
 
-    public long getId() {
-        return id;
+    public String getLast_name() {
+        return last_name;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
-    public String getName() {
-        return name;
+    public String get_id() {
+        return _id;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 }
 
