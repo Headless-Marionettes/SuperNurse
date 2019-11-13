@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                     jsonBody.put("password", password);
                     final String mRequestBody = jsonBody.toString();
 
-                    String url = "http://10.0.2.2:5000/auth/sign_in";
+                    String url = "http://10.0.2.2:5000/auth/signin";
                     JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, null,
                             new Response.Listener<JSONObject>() {
                                 @Override
