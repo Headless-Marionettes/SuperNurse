@@ -2,7 +2,9 @@ package com.example.supernurse.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Patient {
+import java.io.Serializable;
+
+public class Patient implements Serializable {
 
     //  @SerializedName("title")
     String first_name;

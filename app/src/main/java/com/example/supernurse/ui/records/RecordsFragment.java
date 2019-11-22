@@ -1,4 +1,4 @@
-package com.example.supernurse.ui.home;
+package com.example.supernurse.ui.records;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.supernurse.R;
 
-public class HomeFragment extends Fragment {
+public class RecordsFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private RecordsViewModel recordsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(this, new Observer<String>() {
+        recordsViewModel =
+                ViewModelProviders.of(this).get(RecordsViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_records, container, false);
+        final TextView textView = root.findViewById(R.id.text_dashboard);
+        recordsViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

@@ -2,9 +2,12 @@ package com.example.supernurse;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.AuthFailureError;
@@ -52,6 +55,19 @@ public class AdminPatientsListActivity extends AppCompatActivity {
                 //Creating adapter variable and passing patients array
                 PatientsArrayAdapter adapter = new PatientsArrayAdapter(AdminPatientsListActivity.this, patients);
                 listview.setAdapter(adapter);
+
+                listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view,
+                                            int position, long id) {
+
+                        Intent detailsIntent = new Intent(AdminPatientsListActivity.this, PatientProfileActivity.class);
+                        detailsIntent.putExtra("patient", patients.get(position));
+
+                        startActivity(detailsIntent);
+                    }
+                });
+
             }
         }, new Response.ErrorListener() {
             @Override

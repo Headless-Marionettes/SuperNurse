@@ -1,14 +1,14 @@
-package com.example.supernurse.ui.notifications;
+package com.example.supernurse.ui.invoices;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class NotificationsViewModel extends ViewModel {
+public class InvoicesViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public NotificationsViewModel() {
+    public InvoicesViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is notifications fragment");
     }
