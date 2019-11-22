@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -78,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
                 loginEditText.setTextColor(primaryColor);
                 passwordEditText.setTextColor(primaryColor);
                 authErrorTextView.setVisibility(View.INVISIBLE);
+                loginEditText.setBackgroundTintList(getResources().getColorStateList(R.color.colorAccent));
+                passwordEditText.setBackgroundTintList(getResources().getColorStateList(R.color.colorAccent));
             }
 
             @Override
@@ -141,8 +144,11 @@ public class MainActivity extends AppCompatActivity {
                                 public void onErrorResponse(VolleyError error) {
                                     // error
                                     Log.d("Error.Response", "REQUEST FAILED");
-                                    authErrorTextView.setText("WRONG RESPONSE");
                                     authErrorTextView.setVisibility(View.VISIBLE);
+                                    loginEditText.setBackgroundTintList(getResources().getColorStateList(R.color.colorError));
+                                    passwordEditText.setBackgroundTintList(getResources().getColorStateList(R.color.colorError));
+
+
 
                                     SharedPreferences myPreference = getSharedPreferences("UserSharedPreferences", 0);
                                     SharedPreferences.Editor prefEditor = myPreference.edit();

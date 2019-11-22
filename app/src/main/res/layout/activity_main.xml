@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingRight="24dp"
+    android:paddingLeft="24dp"
     tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/image_nurse"
-        android:layout_width="412dp"
+        android:layout_width="350dp"
         android:layout_height="296dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.456"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,6 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter you login"
+            android:backgroundTint="@color/colorAccent"
             android:inputType="textPersonName" />
 
         <EditText
@@ -40,6 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter your password"
+            android:backgroundTint="@color/colorAccent"
             android:inputType="textPassword" />
 
     </LinearLayout>
@@ -48,7 +52,6 @@
         android:id="@+id/authenticate_button"
         android:layout_width="250dp"
         android:layout_height="54dp"
-        android:layout_gravity="center"
         android:text="Login"
         android:textSize="18sp"
         android:theme="@style/AppTheme.Button"
@@ -61,11 +64,11 @@
         android:id="@+id/auth_error_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Login or password are incorrect"
-        android:visibility="invisible"
-        android:textSize="18sp"
         android:textColor="#FF0000"
-        app:layout_constraintBottom_toTopOf="@+id/authenticate_button"
+        android:textSize="18sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
