@@ -40,7 +40,7 @@ public class AdminPatientsListActivity extends AppCompatActivity {
         final List<Patient> patients = new ArrayList();
 
         //Using below url to request patients list
-        String url = "http://10.0.2.2:5000/patients";
+        String url = "https://super-nurse.herokuapp.com/patients";
 
         GsonRequest<Patient[]> patientsRequest = new GsonRequest<Patient[]>(url, Patient[].class, null, new Response.Listener<Patient[]>() {
             @Override
