@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.supernurse.models.Patient;
+import com.example.supernurse.view_models.PatientViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -14,22 +16,31 @@ import androidx.navigation.ui.NavigationUI;
 
 public class PatientProfileActivity extends AppCompatActivity {
 
+    private PatientViewModel patientViewModel;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_profile);
 
-
+        //Get Patient from previous intent
         Intent detailsIntent = getIntent();
         Patient thePatient = (Patient)detailsIntent.getSerializableExtra("patient");
 
-        thePatient.getFirst_name();
+        //  Initialise ViewModel here
+        patientViewModel =
+                ViewModelProviders.of(this).get(PatientViewModel.class);
 
-        //Setting bottom navigation bar
-        //Below code came from navigation bar template
+        //  Set patient to ViewModel, which will be shared between fragments
+        patientViewModel.setPatient(thePatient);
+
+        //  Setting bottom navigation bar:
+        //
+        //  Below code came from navigation bar template
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        //  Passing each menu ID as a set of Ids because each
+        //  menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_profile, R.id.navigation_records, R.id.navigation_invoices)
                 .build();

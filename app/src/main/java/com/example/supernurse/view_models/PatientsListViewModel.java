@@ -1,11 +1,8 @@
 package com.example.supernurse.view_models;
 
 import android.app.Application;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -25,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 public class PatientsListViewModel extends AndroidViewModel {
-    private MutableLiveData<List<Patient>> patientList;
+    private MutableLiveData<List<Patient>> mPatientList;
     public static final String TAG = "AdminPatientsList";
 
     public PatientsListViewModel(@NonNull Application application) {
@@ -33,16 +30,18 @@ public class PatientsListViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Patient>> getPatientList() {
-        if (patientList == null) {
-            patientList = new MutableLiveData<>();
+        if (mPatientList == null) {
+            mPatientList = new MutableLiveData<>();
             loadPatients();
         }
-        return patientList;
+        return mPatientList;
     }
 
+    /**
+     * ASYNC function to load Patients data from the server,
+     * using volley's GSON request
+     */
     private void loadPatients() {
-        // do async operation to fetch users
-
         //Access token from shared pref
         SharedPreferences myPref = getApplication().getSharedPreferences("UserSharedPreferences", getApplication().MODE_PRIVATE);
         final String token = "JWT " + myPref.getString("token", "");
@@ -57,7 +56,7 @@ public class PatientsListViewModel extends AndroidViewModel {
                 for (Patient p : response) {
                     patients.add(p);
                 }
-                patientList.setValue(patients);
+                mPatientList.setValue(patients);
             }
         }, new Response.ErrorListener() {
             @Override

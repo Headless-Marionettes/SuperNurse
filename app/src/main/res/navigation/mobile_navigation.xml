@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.supernurse.ui.profile.ProfileFragment"
+        android:name="com.example.supernurse.fragments.ProfileFragment"
         android:label="@string/label_profile"
         tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/navigation_records"
-        android:name="com.example.supernurse.ui.records.RecordsFragment"
+        android:name="com.example.supernurse.fragments.RecordsFragment"
         android:label="@string/label_records"
         tools:layout="@layout/fragment_records" />
 
     <fragment
         android:id="@+id/navigation_invoices"
-        android:name="com.example.supernurse.ui.invoices.InvoicesFragment"
+        android:name="com.example.supernurse.fragments.InvoicesFragment"
         android:label="@string/label_invoices"
         tools:layout="@layout/fragment_invoices" />
 </navigation>

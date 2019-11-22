@@ -155,8 +155,6 @@ public class MainActivity extends AppCompatActivity {
                                     loginEditText.setBackgroundTintList(getResources().getColorStateList(R.color.colorError));
                                     passwordEditText.setBackgroundTintList(getResources().getColorStateList(R.color.colorError));
 
-
-
                                     SharedPreferences myPreference = getSharedPreferences("UserSharedPreferences", 0);
                                     SharedPreferences.Editor prefEditor = myPreference.edit();
                                     prefEditor.putString("token", "");

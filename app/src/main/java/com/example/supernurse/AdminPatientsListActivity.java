@@ -37,16 +37,21 @@ public class AdminPatientsListActivity extends AppCompatActivity {
         //Creates reference of ListView
         final ListView listview = findViewById(R.id.patientsList);
 
+        //Initialize progressBar and set in visible
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressbar);
         progressBar.setVisibility(View.VISIBLE);
 
         PatientsListViewModel model = ViewModelProviders.of(this).get(PatientsListViewModel.class);
         model.getPatientList().observe(this, patientlist -> {
-            PatientsArrayAdapter adapter = new PatientsArrayAdapter(AdminPatientsListActivity.this, patientlist);
 
+            //Create Custom Array adapter and set it to listview
+            PatientsArrayAdapter adapter = new PatientsArrayAdapter(AdminPatientsListActivity.this, patientlist);
             listview.setAdapter(adapter);
+
+            //Remove progressBar
             progressBar.setVisibility(View.GONE);
 
+            //Move to Patient Profile activity on row click
             listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
@@ -64,6 +69,8 @@ public class AdminPatientsListActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+
+        //Cancel request with specified TAG
         if (ServerRequestQueue.getInstance(this).getRequestQueue() != null) {
             ServerRequestQueue.getInstance(this).getRequestQueue().cancelAll(TAG);
         }
