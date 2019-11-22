@@ -1,6 +1,7 @@
 package com.example.supernurse;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
@@ -16,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.example.supernurse.models.Patient;
 import com.example.supernurse.server_connection.GsonRequest;
 import com.example.supernurse.server_connection.ServerRequestQueue;
+import com.example.supernurse.view_models.PatientsListViewModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,59 +37,35 @@ public class AdminPatientsListActivity extends AppCompatActivity {
         //Creates reference of ListView
         final ListView listview = findViewById(R.id.patientsList);
 
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.VISIBLE);
 
-        //Access token from shared pref
-        SharedPreferences myPref = getSharedPreferences("UserSharedPreferences", MODE_PRIVATE);
-        final String token = "JWT " + myPref.getString("token", "");
+        PatientsListViewModel model = ViewModelProviders.of(this).get(PatientsListViewModel.class);
+        model.getPatientList().observe(this, patientlist -> {
+            PatientsArrayAdapter adapter = new PatientsArrayAdapter(AdminPatientsListActivity.this, patientlist);
 
+            listview.setAdapter(adapter);
+            progressBar.setVisibility(View.GONE);
 
-        final List<Patient> patients = new ArrayList();
+            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view,
+                                        int position, long id) {
 
-        //Using below url to request patients list
-        String url = "https://super-nurse.herokuapp.com/patients";
+                    Intent detailsIntent = new Intent(AdminPatientsListActivity.this, PatientProfileActivity.class);
+                    detailsIntent.putExtra("patient", patientlist.get(position));
 
-        GsonRequest<Patient[]> patientsRequest = new GsonRequest<Patient[]>(url, Patient[].class, null, new Response.Listener<Patient[]>() {
-            @Override
-            public void onResponse(Patient[] response) {
-                for (Patient p : response) {
-                    patients.add(p);
+                    startActivity(detailsIntent);
                 }
+            });
+        });
+    }
 
-                //Creating adapter variable and passing patients array
-                PatientsArrayAdapter adapter = new PatientsArrayAdapter(AdminPatientsListActivity.this, patients);
-                listview.setAdapter(adapter);
-
-                listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view,
-                                            int position, long id) {
-
-                        Intent detailsIntent = new Intent(AdminPatientsListActivity.this, PatientProfileActivity.class);
-                        detailsIntent.putExtra("patient", patients.get(position));
-
-                        startActivity(detailsIntent);
-                    }
-                });
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("ERROR", "No RESPONSE");
-            }
-        }) {
-            @Override
-            public Map getHeaders() throws AuthFailureError {
-                HashMap headers = new HashMap();
-                headers.put("Authorization", token);
-                return headers;
-            }
-        };
-
-        // Set the tag on the request.
-        patientsRequest.setTag(TAG);
-
-        // Add the request to the RequestQueue.
-        ServerRequestQueue.getInstance(this).addToRequestQueue(patientsRequest);
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (ServerRequestQueue.getInstance(this).getRequestQueue() != null) {
+            ServerRequestQueue.getInstance(this).getRequestQueue().cancelAll(TAG);
+        }
     }
 }

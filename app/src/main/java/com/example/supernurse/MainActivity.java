@@ -15,6 +15,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,8 +56,10 @@ public class MainActivity extends AppCompatActivity {
         final EditText passwordEditText = findViewById(R.id.password_edit_text);
         final Button authButton = findViewById(R.id.authenticate_button);
         final TextView authErrorTextView = findViewById(R.id.auth_error_text);
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressbarLogin);
 
         authErrorTextView.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
 
 
         TypedValue typedValue = new TypedValue();
@@ -93,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                progressBar.setVisibility(View.VISIBLE);
+
                 //getting email and password from editText
                 String email = loginEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
@@ -123,6 +128,8 @@ public class MainActivity extends AppCompatActivity {
 
                                             //Starting new intent
                                             Intent patients = new Intent(MainActivity.this, AdminPatientsListActivity.class);
+
+                                            progressBar.setVisibility(View.GONE);
                                             startActivity(patients);
 
                                         } catch (JSONException e) {
