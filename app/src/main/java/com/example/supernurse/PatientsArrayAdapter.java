@@ -33,12 +33,12 @@ public class PatientsArrayAdapter extends ArrayAdapter<Patient> {
 
         //Assigning row UI elements to appropriate references
         TextView textViewName = (TextView) rowView.findViewById(R.id.name);
-        TextView textViewFloor= (TextView) rowView.findViewById(R.id.floor);
+        TextView textViewRoom= (TextView) rowView.findViewById(R.id.room);
         TextView textViewDateOfBirth= (TextView) rowView.findViewById(R.id.date_of_birth);
 
         //Assigning Patients data to UI elements
         textViewName.setText(patients.get(position).getFirst_name() + " " + patients.get(position).getLast_name());
-        textViewFloor.setText(patients.get(position).getRoom());
+        textViewRoom.setText(patients.get(position).getRoom());
         textViewDateOfBirth.setText(patients.get(position).getDate_of_birth());
 
         return rowView;
