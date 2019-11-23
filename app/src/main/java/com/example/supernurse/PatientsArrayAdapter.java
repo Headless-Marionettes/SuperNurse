@@ -33,11 +33,14 @@ public class PatientsArrayAdapter extends ArrayAdapter<Patient> {
 
         //Assigning row UI elements to appropriate references
         TextView textViewName = (TextView) rowView.findViewById(R.id.name);
-        TextView textViewLastName = (TextView) rowView.findViewById(R.id.last_name);
+        TextView textViewFloor= (TextView) rowView.findViewById(R.id.floor);
+        TextView textViewDateOfBirth= (TextView) rowView.findViewById(R.id.date_of_birth);
 
         //Assigning Patients data to UI elements
-        textViewName.setText(patients.get(position).getFirst_name());
-        textViewLastName.setText(patients.get(position).getLast_name());
+        textViewName.setText(patients.get(position).getFirst_name() + " " + patients.get(position).getLast_name());
+        textViewFloor.setText(patients.get(position).getFloor());
+        textViewDateOfBirth.setText(patients.get(position).getDate_of_birth());
+
         return rowView;
     }
 }
