@@ -48,7 +48,7 @@ public class PatientsListViewModel extends AndroidViewModel {
 
 
         final List<Patient> patients = new ArrayList();
-        String url = "https://super-nurse.herokuapp.com/patients";
+        String url = "http://10.0.2.2:5000/patients";
 
         GsonRequest<Patient[]> patientsRequest = new GsonRequest<Patient[]>(url, Patient[].class, null, new Response.Listener<Patient[]>() {
             @Override

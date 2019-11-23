@@ -38,7 +38,7 @@ public class PatientsArrayAdapter extends ArrayAdapter<Patient> {
 
         //Assigning Patients data to UI elements
         textViewName.setText(patients.get(position).getFirst_name() + " " + patients.get(position).getLast_name());
-        textViewFloor.setText(patients.get(position).getFloor());
+        textViewFloor.setText(patients.get(position).getRoom());
         textViewDateOfBirth.setText(patients.get(position).getDate_of_birth());
 
         return rowView;
