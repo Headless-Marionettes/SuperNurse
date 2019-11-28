@@ -32,12 +32,18 @@ public class RecordsArrayAdapter extends ArrayAdapter<Record> {
         View rowView = inflater.inflate(R.layout.record_rowlayout, parent, false);
 
         //Assigning row UI elements to appropriate references
-        TextView textViewDate = (TextView) rowView.findViewById(R.id.dateTextView);
-        TextView textViewBloodPressure = (TextView) rowView.findViewById(R.id.bloodPressureTextView);
+        TextView textViewDate = rowView.findViewById(R.id.dateTextView);
+        TextView textViewBloodPressure = rowView.findViewById(R.id.bloodPressureTextView);
+        TextView textViewRespiratory = rowView.findViewById(R.id.respiratoryTextView);
+        TextView textViewBloodOxygen = rowView.findViewById(R.id.bloodOxygenTextView);
+        TextView textViewHeartBeat = rowView.findViewById(R.id.heartBeatTextView);
 
         //Assigning Patients data to UI elements
-        textViewDate.setText(records.get(position).getDate());
-        textViewBloodPressure.setText(records.get(position).getBlood_pressure());
+        textViewDate.setText(String.format("Record from %S",records.get(position).getDate()));
+        textViewBloodPressure.setText(String.format("Blood Pressure: %S", records.get(position).getBlood_pressure()));
+        textViewRespiratory.setText(String.format("Respiratory Rate: %S", records.get(position).getRespiratory_rate()));
+        textViewBloodOxygen.setText(String.format("Blood Oxygen Level: %S", records.get(position).getBlood_oxygen_level()));
+        textViewHeartBeat.setText(String.format("Heart Beat Rate: %S", records.get(position).getHeart_beat_rate()));
 
         return rowView;
     }

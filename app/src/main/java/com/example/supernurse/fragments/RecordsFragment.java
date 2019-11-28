@@ -61,7 +61,7 @@ public class RecordsFragment extends Fragment {
         recordsListViewModel.getRecordList().observe(this, new Observer<List<Record>>() {
             @Override
             public void onChanged(List<Record> records) {
-                System.out.println(records);
+                System.out.println(records.get(0).getHeart_beat_rate());
                 RecordsArrayAdapter adapter = new RecordsArrayAdapter(getActivity(), records);
                 recordsListView.setAdapter(adapter);
             }
