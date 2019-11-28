@@ -49,6 +49,7 @@ public class RecordsFragment extends Fragment {
             @Override
             public void onChanged(@Nullable Patient p) {
                 textView.setText(p.getFirst_name()+" RECORDS");
+                recordsListViewModel.setPatientId(p.get_id());
 
                 getRecordsList();
             }
