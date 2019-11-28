@@ -29,14 +29,17 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        // Initialise textView UI element
-        final TextView textView = root.findViewById(R.id.text_profile);
+        final TextView patientFullName = root.findViewById(R.id.patient_full_name);
+        final TextView patientBirthday = root.findViewById(R.id.patient_birthday);
+        final TextView patientRoom = root.findViewById(R.id.patient_room);
 
         // Set Observer to patient data stored in shared ViewModel
         patientViewModel.getPatient().observe(this, new Observer<Patient>() {
             @Override
             public void onChanged(@Nullable Patient p) {
-                textView.setText(p.getFirst_name()+" PROFILE");
+                patientFullName.setText(p.getFirst_name() + " " + p.getLast_name());
+                patientBirthday.setText(p.getDate_of_birth() + " " + p.getDate_of_birth());
+                patientRoom.setText(p.getRoom());
             }
         });
         return root;
