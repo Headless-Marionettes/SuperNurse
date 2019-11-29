@@ -27,31 +27,25 @@ public class RecordsListViewModel extends AndroidViewModel {
     private MutableLiveData<List<Record>> mRecordList;
     public static final String TAG = "PatientsRecordList";
 
-    private String patientId;
-
     public RecordsListViewModel(@NonNull Application application) {
         super(application);
     }
 
-    public LiveData<List<Record>> getRecordList() {
+    public LiveData<List<Record>> getRecordList(String id) {
         if (mRecordList == null) {
             mRecordList = new MutableLiveData<>();
-            loadRecords();
+            loadRecords(id);
         }
         return mRecordList;
     }
 
-    public void setPatientId(String id) {
-        patientId = id;
-    }
-
-    private void loadRecords() {
+    private void loadRecords(String id) {
         //Access token from shared pref
         SharedPreferences myPref = getApplication().getSharedPreferences("UserSharedPreferences", getApplication().MODE_PRIVATE);
         final String token = "JWT " + myPref.getString("token", "");
 
         final List<Record> records = new ArrayList();
-        String url = String.format("https://super-nurse.herokuapp.com/patients/%S/records", patientId);
+        String url = String.format("https://super-nurse.herokuapp.com/patients/%S/records", id);
 
         GsonRequest<Record[]> recordsRequest = new GsonRequest<Record[]>(url, Record[].class, null, new Response.Listener<Record[]>() {
             @Override

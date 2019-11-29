@@ -49,16 +49,15 @@ public class RecordsFragment extends Fragment {
             @Override
             public void onChanged(@Nullable Patient p) {
                 textView.setText(p.getFirst_name()+" RECORDS");
-                recordsListViewModel.setPatientId(p.get_id());
 
-                getRecordsList();
+                getRecordsList(p.get_id());
             }
         });
         return root;
     }
 
-    private void getRecordsList() {
-        recordsListViewModel.getRecordList().observe(this, new Observer<List<Record>>() {
+    private void getRecordsList(String id) {
+        recordsListViewModel.getRecordList(id).observe(this, new Observer<List<Record>>() {
             @Override
             public void onChanged(List<Record> records) {
                 RecordsArrayAdapter adapter = new RecordsArrayAdapter(getActivity(), records);
