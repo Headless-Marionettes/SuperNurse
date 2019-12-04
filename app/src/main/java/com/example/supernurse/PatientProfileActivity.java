@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.example.supernurse.models.Patient;
 import com.example.supernurse.view_models.PatientViewModel;
@@ -56,6 +57,19 @@ public class PatientProfileActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(PatientProfileActivity.this, NewRecordActivity.class);
+        switch (item.getItemId()) {
+            //user selected meat supreme
+            case R.id.add_record:
+                startActivity(intent);
+                return true;
+            default:
+                return true;
+        }
     }
 
 }
