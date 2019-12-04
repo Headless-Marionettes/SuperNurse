@@ -2,6 +2,8 @@ package com.example.supernurse;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import com.example.supernurse.models.Patient;
 import com.example.supernurse.view_models.PatientViewModel;
@@ -18,6 +20,13 @@ public class PatientProfileActivity extends AppCompatActivity {
 
     private PatientViewModel patientViewModel;
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.profile_menu, menu);
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
