@@ -10,7 +10,9 @@ import com.example.supernurse.models.Patient;
 import com.example.supernurse.view_models.PatientViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -20,6 +22,7 @@ import androidx.navigation.ui.NavigationUI;
 public class PatientProfileActivity extends AppCompatActivity {
 
     private PatientViewModel patientViewModel;
+    private String patientId;
 
 
     @Override
@@ -57,13 +60,21 @@ public class PatientProfileActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        //Get patient ID to pass to newRecordActivity
+        patientViewModel.getPatient().observe(this, new Observer<Patient>() {
+            @Override
+            public void onChanged(@Nullable Patient p) {
+                patientId = p.get_id();
+            }
+        });
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = new Intent(PatientProfileActivity.this, NewRecordActivity.class);
+        intent.putExtra("patientId", patientId);
         switch (item.getItemId()) {
-            //user selected meat supreme
             case R.id.add_record:
                 startActivity(intent);
                 return true;
