@@ -11,9 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name=".services.LoadInvoicesService"
+            android:enabled="true"
+            android:exported="true"></service>
+
         <activity
             android:name=".PatientProfileActivity"
-            android:label="@string/title_activity_patient_profile"></activity>
+            android:label="@string/title_activity_patient_profile" />
         <activity android:name=".AdminPatientsListActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
