@@ -16,6 +16,7 @@
         android:text="Enter new record data"/>
 
     <EditText
+        android:id="@+id/blood_pressure_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -23,13 +24,15 @@
         android:backgroundTint="@color/colorAccent"/>
 
     <EditText
+        android:id="@+id/respiratory_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:hint="Enter new respiratory rate"
+        android:hint="Enter respiratory rate"
         android:backgroundTint="@color/colorAccent"/>
 
     <EditText
+        android:id="@+id/blood_oxygen_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -37,6 +40,7 @@
         android:backgroundTint="@color/colorAccent"/>
 
     <EditText
+        android:id="@+id/heart_beat_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -47,6 +51,7 @@
         android:id="@+id/authenticate_button"
         android:layout_width="250dp"
         android:layout_height="54dp"
+        android:onClick="addReportPressed"
         android:text="Add Record"
         android:textSize="18sp"
         android:theme="@style/AppTheme.Button"
