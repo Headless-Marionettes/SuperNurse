@@ -16,6 +16,7 @@
             android:enabled="true"
             android:exported="true"></service>
 
+        <activity android:name=".NewRecordActivity"></activity>
         <activity
             android:name=".PatientProfileActivity"
             android:label="@string/title_activity_patient_profile" />

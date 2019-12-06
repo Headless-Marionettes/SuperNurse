@@ -28,6 +28,7 @@ public class RecordsFragment extends Fragment {
     private PatientViewModel patientViewModel;
     private RecordsListViewModel recordsListViewModel;
     private ListView recordsListView;
+    private TextView textView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class RecordsFragment extends Fragment {
         recordsListView = root.findViewById(R.id.recordsList);
 
         // Initialise textView UI element
-        final TextView textView = root.findViewById(R.id.text_records);
+        textView = root.findViewById(R.id.text_records);
 
         // Set Observer to patient data stored in shared ViewModel
         patientViewModel.getPatient().observe(this, new Observer<Patient>() {

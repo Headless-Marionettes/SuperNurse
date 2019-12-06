@@ -19,6 +19,7 @@ import com.example.supernurse.server_connection.ServerRequestQueue;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +54,7 @@ public class RecordsListViewModel extends AndroidViewModel {
                 for (Record r : response) {
                     records.add(r);
                 }
+                Collections.reverse(records);
                 mRecordList.setValue(records);
             }
         }, new Response.ErrorListener() {
