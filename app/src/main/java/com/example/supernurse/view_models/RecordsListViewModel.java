@@ -35,12 +35,12 @@ public class RecordsListViewModel extends AndroidViewModel {
     public LiveData<List<Record>> getRecordList(String id) {
         if (mRecordList == null) {
             mRecordList = new MutableLiveData<>();
-            loadRecords(id);
         }
+
         return mRecordList;
     }
 
-    private void loadRecords(String id) {
+    public void loadRecords(String id) {
         //Access token from shared pref
         SharedPreferences myPref = getApplication().getSharedPreferences("UserSharedPreferences", getApplication().MODE_PRIVATE);
         final String token = "JWT " + myPref.getString("token", "");
