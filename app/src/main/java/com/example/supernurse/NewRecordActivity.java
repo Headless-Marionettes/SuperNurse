@@ -80,7 +80,6 @@ public class NewRecordActivity extends AppCompatActivity {
             JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    System.out.println("It worked!");
                     System.out.println(mRequestBody);
                     finish();
                 }
