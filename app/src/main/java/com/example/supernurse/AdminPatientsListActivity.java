@@ -42,6 +42,7 @@ public class AdminPatientsListActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         PatientsListViewModel model = ViewModelProviders.of(this).get(PatientsListViewModel.class);
+
         model.getPatientList().observe(this, patientlist -> {
 
             //Create Custom Array adapter and set it to listview

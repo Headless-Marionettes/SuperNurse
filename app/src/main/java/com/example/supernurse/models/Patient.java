@@ -3,6 +3,7 @@ package com.example.supernurse.models;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Patient implements Serializable {
     //  @SerializedName("title")
@@ -19,8 +20,11 @@ public class Patient implements Serializable {
 
     String _id;
 
+    ArrayList<String> invoices;
+
 
     public Patient() {
+        invoices = new ArrayList<>();
     }
 
     public Patient(String first_name, String last_name, String weight, String height, String date_of_birth, String room, EmergencyContact emergencyContact, String _id) {
@@ -98,6 +102,14 @@ public class Patient implements Serializable {
 
     public void setEmergencyContact(EmergencyContact emergencyContact) {
         this.emergency_contact = emergencyContact;
+    }
+
+    public ArrayList<String> getInvoices() {
+        return invoices;
+    }
+
+    public void addInvoice(String invoice) {
+        invoices.add(invoice);
     }
 }
 
