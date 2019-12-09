@@ -49,10 +49,13 @@ public class PatientsArrayAdapter extends ArrayAdapter<Patient> {
 
         if (position % 3 == 0) {
             image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.three));
+            patients.get(position).setImageId(R.drawable.three);
         } else if (position % 2 == 0) {
             image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.two));
+            patients.get(position).setImageId(R.drawable.two);
         } else {
             image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.one));
+            patients.get(position).setImageId(R.drawable.one);
         }
 
         return rowView;

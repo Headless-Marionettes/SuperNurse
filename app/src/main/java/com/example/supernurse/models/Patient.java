@@ -9,12 +9,12 @@ public class Patient implements Serializable {
     //  @SerializedName("title")
     String first_name;
     String last_name;
-
-
     String weight;
     String height;
     String date_of_birth;
     String room;
+
+    int imageId;
 
     EmergencyContact emergency_contact;
 
@@ -111,5 +111,9 @@ public class Patient implements Serializable {
     public void addInvoice(String invoice) {
         invoices.add(invoice);
     }
+
+    public int getImageId() { return imageId; }
+
+    public void setImageId(int imageId) { this.imageId = imageId; }
 }
 
