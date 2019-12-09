@@ -8,219 +8,233 @@
     android:fillViewport="true">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="800dp">
 
-            <ImageView
-                android:id="@+id/patient_image"
-                android:layout_width="187dp"
-                android:layout_height="181dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_marginTop="16dp"
-                android:text="Fullname:"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.677"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/patient_full_name"
-                android:layout_width="140dp"
-                android:layout_height="25dp"
-                android:layout_marginTop="48dp"
-                android:textAlignment="textStart"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.808"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_marginTop="88dp"
-                android:text="Room:"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.62"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/patient_room"
-                android:layout_width="100dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="88dp"
-                android:layout_marginEnd="8dp"
-                android:textAlignment="textStart"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.962"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_marginTop="132dp"
-                android:text="Birthday:"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.659"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/patient_birthday"
-                android:layout_width="157dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="172dp"
-                android:layout_marginEnd="8dp"
-                android:textAlignment="textStart"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.886"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/patient_base_info"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="252dp"
-                android:text="Family contact"
-                android:textSize="25sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="304dp"
-                android:text="Fullname:"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="396dp"
-                android:text="Email:"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="444dp"
-                android:text="Address:"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="348dp"
-                android:text="Phone number:"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <TextView
-                android:id="@+id/emergency_fullname"
-                android:layout_width="290dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="112dp"
-                android:layout_marginTop="304dp"
-                android:textAlignment="textStart"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/emergency_phonenumber"
-                android:layout_width="242dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="160dp"
-                android:layout_marginTop="348dp"
-                android:textAlignment="textStart"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/emergency_email"
-                android:layout_width="320dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="396dp"
-                android:textAlignment="textStart"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/emergency_address"
-                android:layout_width="389dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="484dp"
-                android:textAlignment="textStart"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="525dp"
-                android:background="@color/colorSecondaryText"
-                android:padding="1dp"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:paddingBottom="@dimen/mediumSpacing"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <fragment
-                    android:id="@+id/map"
-                    android:name="com.google.android.gms.maps.SupportMapFragment"
-                    android:layout_width="198dp"
-                    android:layout_height="198dp"
-                    app:liteMode="true"
-                    tools:context=".ProfileFragment" />
+                <ImageView
+                    android:id="@+id/patient_image"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_marginStart="@dimen/smallSpacing"
+                    android:layout_marginTop="@dimen/smallSpacing"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/patient_full_name"
+                    android:layout_width="199dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/mediumSpacing"
+                    android:layout_weight="1"
+                    android:maxLines="3"
+                    android:text="Lololo dsdssj sdbcsjdbcjs"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/activityTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/patient_image"
+                    app:layout_constraintTop_toTopOf="parent" />
 
+                <LinearLayout
+                    android:id="@+id/patient_room_row"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/mediumSpacing"
+                    android:layout_marginTop="@dimen/medLargeSpacing"
+                    android:layout_marginEnd="@dimen/smallSpacing"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toEndOf="@+id/patient_image"
+                    app:layout_constraintTop_toBottomOf="@+id/patient_full_name">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/room"
+                        android:textSize="@dimen/largeCopy" />
+
+                    <TextView
+                        android:id="@+id/patient_room"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/smallSpacing"
+                        android:text="@+id/patient_room"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/largeCopy" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/patient_dob_row"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/mediumSpacing"
+                    android:layout_marginTop="@dimen/smallSpacing"
+                    android:layout_marginEnd="@dimen/smallSpacing"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toEndOf="@+id/patient_image"
+                    app:layout_constraintTop_toBottomOf="@+id/patient_room_row">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dob"
+                        android:textSize="@dimen/largeCopy" />
+
+                    <TextView
+                        android:id="@+id/patient_birthday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/largeCopy" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/family_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/smallSpacing"
+                android:layout_marginTop="@dimen/baseSpacing"
+                android:layout_marginEnd="@dimen/smallSpacing"
+                android:paddingBottom="@dimen/mediumSpacing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/patient_base_info">
+
+                <TextView
+                    android:id="@+id/family_info_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/family_contact"
+                    android:textSize="@dimen/xlargeCopy"
+                    android:textColor="@color/colorAccent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/emergency_fullname_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="@string/family_contact_name"
+                    android:textSize="@dimen/largeCopy"
+                    android:layout_marginTop="@dimen/mediumSpacing"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/family_info_title" />
+
+                <TextView
+                    android:id="@+id/emergency_fullname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="@dimen/smallSpacing"
+                    android:textSize="@dimen/largeCopy"
+                    android:textColor="@color/colorPrimaryText"
+                    android:layout_marginTop="@dimen/mediumSpacing"
+                    app:layout_constraintStart_toEndOf="@+id/emergency_fullname_label"
+                    app:layout_constraintTop_toBottomOf="@+id/family_info_title"  />
+
+                <TextView
+                    android:id="@+id/emergency_email_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="@string/family_contact_email"
+                    android:textSize="@dimen/largeCopy"
+                    android:layout_marginTop="@dimen/mediumSpacing"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/emergency_fullname_label" />
+
+
+                <TextView
+                    android:id="@+id/emergency_email"
+                    android:layout_width="320dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="@dimen/mediumSpacing"
+                    android:layout_marginStart="@dimen/smallSpacing"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="@dimen/largeCopy"
+                    app:layout_constraintStart_toEndOf="@+id/emergency_email_label"
+                    app:layout_constraintTop_toBottomOf="@+id/emergency_fullname_label" />
+
+                <TextView
+                    android:id="@+id/emergency_phonenumber_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="@string/family_contact_phone"
+                    android:textSize="@dimen/largeCopy"
+                    android:layout_marginTop="@dimen/mediumSpacing"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/emergency_email_label" />
+
+                <TextView
+                    android:id="@+id/emergency_phonenumber"
+                    android:layout_width="242dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="@dimen/mediumSpacing"
+                    android:layout_marginStart="@dimen/smallSpacing"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="@dimen/largeCopy"
+                    app:layout_constraintStart_toEndOf="@+id/emergency_phonenumber_label"
+                    app:layout_constraintTop_toBottomOf="@+id/emergency_email" />
+
+                <TextView
+                    android:id="@+id/emergency_address_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="@string/family_contact_address"
+                    android:textSize="@dimen/largeCopy"
+                    android:layout_marginTop="@dimen/mediumSpacing"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/emergency_phonenumber_label" />
+
+                <TextView
+                    android:id="@+id/emergency_address"
+                    android:layout_width="304dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/smallSpacing"
+                    android:layout_marginTop="@dimen/mediumSpacing"
+                    android:maxLines="3"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="@dimen/largeCopy"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/emergency_address_label"
+                    app:layout_constraintTop_toBottomOf="@+id/emergency_phonenumber_label" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="@dimen/mediumSpacing"
+                    android:background="@color/colorAccent"
+                    android:padding="1dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/emergency_address">
+
+                    <fragment
+                        android:id="@+id/map"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="198dp"
+                        app:liteMode="true"
+                        tools:context=".ProfileFragment" />
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

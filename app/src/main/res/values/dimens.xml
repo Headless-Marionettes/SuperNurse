@@ -5,6 +5,7 @@
 
     <!--Typography-->
     <dimen name="activityTitle">30sp</dimen>
+    <dimen name="xlargeCopy">24sp</dimen>
     <dimen name="largeCopy">20sp</dimen>
     <dimen name="copy">16sp</dimen>
     <dimen name="smallCopy">12sp</dimen>
@@ -18,6 +19,7 @@
     <dimen name="medLargeSpacing">20dp</dimen>
     <dimen name="baseSpacing">24dp</dimen>
 
+    <dimen name="largeMedSpacing">30dp</dimen>
     <dimen name="largeSpacing">40dp</dimen>
     <dimen name="xlargeSpacing">60dp</dimen>
     <dimen name="xxlargeSpacing">90dp</dimen>

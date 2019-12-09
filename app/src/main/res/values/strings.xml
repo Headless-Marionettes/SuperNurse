@@ -13,4 +13,10 @@
 
     <!--    Patients info-->
     <string name="dob">DOB: </string>
+    <string name="room">ROOM: </string>
+    <string name="family_contact">FAMILY CONTACT</string>
+    <string name="family_contact_name">Full Name:</string>
+    <string name="family_contact_email">Email:</string>
+    <string name="family_contact_phone">Phone number:</string>
+    <string name="family_contact_address">Address:</string>
 </resources>

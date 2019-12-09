@@ -68,7 +68,7 @@ public class ProfileFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onChanged(@Nullable Patient p) {
                 patientFullName.setText(p.getFirst_name() + " " + p.getLast_name());
-                patientBirthday.setText(p.getDate_of_birth() + " " + p.getDate_of_birth());
+                patientBirthday.setText(p.getDate_of_birth());
                 patientRoom.setText(p.getRoom());
                 patientImage.setImageDrawable(ContextCompat.getDrawable(getActivity(), p.getImageId()));
 
