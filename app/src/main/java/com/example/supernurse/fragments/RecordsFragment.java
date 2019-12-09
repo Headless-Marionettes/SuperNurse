@@ -1,6 +1,7 @@
 package com.example.supernurse.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.example.supernurse.view_models.PatientViewModel;
 import com.example.supernurse.view_models.RecordsListViewModel;
 
 import java.io.Console;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecordsFragment extends Fragment {
@@ -29,6 +31,8 @@ public class RecordsFragment extends Fragment {
     private RecordsListViewModel recordsListViewModel;
     private ListView recordsListView;
     private TextView textView;
+
+    private RecordsArrayAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,15 +50,10 @@ public class RecordsFragment extends Fragment {
         // Initialise textView UI element
         textView = root.findViewById(R.id.text_records);
 
-        // Set Observer to patient data stored in shared ViewModel
-        patientViewModel.getPatient().observe(this, new Observer<Patient>() {
-            @Override
-            public void onChanged(@Nullable Patient p) {
-                textView.setText(p.getFirst_name()+" RECORDS");
+        Patient patient = patientViewModel.getPatient().getValue();
+        textView.setText(patient.getFirst_name() + " RECORDS");
+        getRecordsList(patient.get_id());
 
-                getRecordsList(p.get_id());
-            }
-        });
         return root;
     }
 
@@ -62,9 +61,30 @@ public class RecordsFragment extends Fragment {
         recordsListViewModel.getRecordList(id).observe(this, new Observer<List<Record>>() {
             @Override
             public void onChanged(List<Record> records) {
-                RecordsArrayAdapter adapter = new RecordsArrayAdapter(getActivity(), records);
-                recordsListView.setAdapter(adapter);
+
+                if (adapter != null) {
+                    List<Record> newRecords = new ArrayList<>(records);
+                    adapter.clear();
+                    adapter.addAll(newRecords);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    adapter = new RecordsArrayAdapter(getActivity(), records);
+                    recordsListView.setAdapter(adapter);
+                }
             }
         });
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        try {
+            // getting all products
+            recordsListViewModel.loadRecords(patientViewModel.getPatient().getValue().get_id());
+        } catch (Exception exception) {
+            Log.i("Error while getting all products: ", exception.getMessage());
+        }
+    }
+
 }
