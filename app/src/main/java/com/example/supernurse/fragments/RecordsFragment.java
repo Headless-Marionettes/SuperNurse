@@ -36,6 +36,7 @@ public class RecordsFragment extends Fragment {
         // Initialise shared ViewModel
         patientViewModel =
                 ViewModelProviders.of(requireActivity()).get(PatientViewModel.class);
+
         recordsListViewModel = ViewModelProviders.of(this).get(RecordsListViewModel.class);
 
         // Inflate the layout for this fragment

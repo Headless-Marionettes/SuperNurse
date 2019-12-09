@@ -120,8 +120,16 @@ public class PatientProfileActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop() {
+        unregisterReceiver(receiver);
+
+        super.onStop();
+    }
+
+    @Override
     protected void onDestroy() {
         unregisterReceiver(receiver);
+
         super.onDestroy();
     }
 }

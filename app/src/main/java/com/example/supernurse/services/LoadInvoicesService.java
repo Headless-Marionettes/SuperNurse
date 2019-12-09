@@ -48,6 +48,7 @@ public class LoadInvoicesService extends Service {
         Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
     }
 
+
     private class DoBackgroundTask extends AsyncTask<String, Void, Void> {
 
         @Override
