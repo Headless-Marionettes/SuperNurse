@@ -4,6 +4,7 @@
     <string name="title_profile">Profile</string>
     <string name="title_records">Records</string>
     <string name="title_invoices">Invoices</string>
+    <string name="label_list">Patients List</string>
     <string name="label_profile">Patient Profile</string>
     <string name="label_records">Patient Records</string>
     <string name="label_invoices">Patient Invoices</string>

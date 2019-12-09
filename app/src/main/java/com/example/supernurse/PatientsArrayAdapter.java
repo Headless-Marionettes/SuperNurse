@@ -5,10 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+
 import com.example.supernurse.models.Patient;
+
 import java.util.List;
 
 public class PatientsArrayAdapter extends ArrayAdapter<Patient> {
@@ -33,13 +37,23 @@ public class PatientsArrayAdapter extends ArrayAdapter<Patient> {
 
         //Assigning row UI elements to appropriate references
         TextView textViewName = (TextView) rowView.findViewById(R.id.name);
-        TextView textViewRoom= (TextView) rowView.findViewById(R.id.room);
-        TextView textViewDateOfBirth= (TextView) rowView.findViewById(R.id.date_of_birth);
+        TextView textViewRoom = (TextView) rowView.findViewById(R.id.room);
+        TextView textViewDateOfBirth = (TextView) rowView.findViewById(R.id.date_of_birth);
 
         //Assigning Patients data to UI elements
         textViewName.setText(patients.get(position).getFirst_name() + " " + patients.get(position).getLast_name());
         textViewRoom.setText(patients.get(position).getRoom());
         textViewDateOfBirth.setText(patients.get(position).getDate_of_birth());
+
+        ImageView image = rowView.findViewById(R.id.appCompatImageView);
+
+        if (position % 3 == 0) {
+            image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.three));
+        } else if (position % 2 == 0) {
+            image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.two));
+        } else {
+            image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.one));
+        }
 
         return rowView;
     }

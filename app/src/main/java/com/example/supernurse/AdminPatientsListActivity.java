@@ -34,10 +34,13 @@ public class AdminPatientsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_patients_list);
 
-        //Creates reference of ListView
+        // Setting title to the Activity
+        this.setTitle(R.string.label_list);
+
+        // Creates reference of ListView
         final ListView listview = findViewById(R.id.patientsList);
 
-        //Initialize progressBar and set in visible
+        // Initialize progressBar and set in visible
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressbar);
         progressBar.setVisibility(View.VISIBLE);
 
