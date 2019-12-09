@@ -32,13 +32,13 @@ public class LoadInvoicesService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
-        info_intent = intent.getStringExtra("info_intent");
+        info_intent = intent.getExtras().getString("info_intent");
 
         try {
             mTask = new DoBackgroundTask();
             mTask.execute(
-                    new Invoice("Invoice 1", "https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf"),
-                    new Invoice("Invoice 2", "https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf"),
+                    new Invoice("Invoice 1", "https://docs.google.com/document/d/1XTgL7f_NkM6Wc_tXH3e8DzRlsx11ZoAtc_FoCgXgYu8/export?format=pdf"),
+                    new Invoice("Invoice 2", "https://docs.google.com/document/d/1pd0fc8kQVFUtMoEFhLGoZWhSlds16ouOVD4_YnJjgS4/export?format=pdf"),
                     new Invoice("Invoice 3", "https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf"),
                     new Invoice("Invoice 4", "https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf"),
                     new Invoice("Invoice 5", "https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf"),
@@ -76,7 +76,7 @@ public class LoadInvoicesService extends Service {
 
                 //simulate taking some time to download an invoice
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(4000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -87,6 +87,10 @@ public class LoadInvoicesService extends Service {
 
                 //broadcasting the intent to a receiver
                 sendBroadcast(broadcastIntent);
+
+                if (isCancelled()) {
+                    break;
+                }
             }
             return null;
         }

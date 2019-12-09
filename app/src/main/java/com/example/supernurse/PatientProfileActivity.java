@@ -28,6 +28,7 @@ public class PatientProfileActivity extends AppCompatActivity {
 
     private PatientViewModel patientViewModel;
     private String patientId;
+    private Patient thePatient;
 
 
     @Override
@@ -44,7 +45,7 @@ public class PatientProfileActivity extends AppCompatActivity {
 
         //Get Patient from previous intent
         Intent detailsIntent = getIntent();
-        Patient thePatient = (Patient) detailsIntent.getSerializableExtra("patient");
+        thePatient = (Patient) detailsIntent.getSerializableExtra("patient");
 
         //  Initialise ViewModel here
         patientViewModel =
@@ -68,7 +69,7 @@ public class PatientProfileActivity extends AppCompatActivity {
 
        // if (thePatient.getInvoices().size() == 0) {
         Intent serviceIntent =  new Intent(getBaseContext(), LoadInvoicesService.class);
-        serviceIntent.putExtra("info_intetn", thePatient.get_id());
+        serviceIntent.putExtra("info_intent", thePatient.get_id());
         startService(serviceIntent);
      //   }
     }
@@ -77,10 +78,10 @@ public class PatientProfileActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            String test = LoadInvoicesService.getInfo_intetn();
+            String getInfo_intetn = thePatient.get_id();
 
-            if (action.equals(LoadInvoicesService.getInfo_intetn())) {
-                Invoice info = (Invoice)intent.getSerializableExtra(LoadInvoicesService.getInfo_intetn());
+            if (action.equals(getInfo_intetn)) {
+                Invoice info = (Invoice)intent.getSerializableExtra(getInfo_intetn);
 
                 patientViewModel.addInvoice(info);
             }
@@ -91,7 +92,7 @@ public class PatientProfileActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         //This needs to be in the activity that will end up receiving the broadcast
-        registerReceiver(receiver, new IntentFilter("loadPDF"));
+        registerReceiver(receiver, new IntentFilter(thePatient.get_id()));
 
 
         //Get patient ID to pass to newRecordActivity

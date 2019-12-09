@@ -19,10 +19,6 @@ public class PatientViewModel extends ViewModel {
         mPatient.setValue(patient);
     }
 
-    private void loadInvoices() {
-
-    }
-
     public void addInvoice(Invoice inv) {
         mPatient.getValue().addInvoice(inv);
         mPatient.postValue(mPatient.getValue());
