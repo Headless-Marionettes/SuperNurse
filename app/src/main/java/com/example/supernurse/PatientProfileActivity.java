@@ -8,8 +8,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.util.Log;
 
+import com.example.supernurse.models.Invoice;
 import com.example.supernurse.models.Patient;
 import com.example.supernurse.services.LoadInvoicesService;
 import com.example.supernurse.view_models.PatientViewModel;
@@ -67,7 +67,9 @@ public class PatientProfileActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
        // if (thePatient.getInvoices().size() == 0) {
-            startService(new Intent(getBaseContext(), LoadInvoicesService.class));
+        Intent serviceIntent =  new Intent(getBaseContext(), LoadInvoicesService.class);
+        serviceIntent.putExtra("info_intetn", thePatient.get_id());
+        startService(serviceIntent);
      //   }
     }
 
@@ -75,17 +77,12 @@ public class PatientProfileActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (action.equals(LoadInvoicesService.INFO_INTENT)) {
-                String info = intent.getStringExtra("loadPDF");
+            String test = LoadInvoicesService.getInfo_intetn();
+
+            if (action.equals(LoadInvoicesService.getInfo_intetn())) {
+                Invoice info = (Invoice)intent.getSerializableExtra(LoadInvoicesService.getInfo_intetn());
 
                 patientViewModel.addInvoice(info);
-
-                Log.i("!!!!!!", info);
-
-                Patient p = patientViewModel.getPatient().getValue();
-                int invoicesSize = p.getInvoices().size();
-                Log.i("!!!!!!****", Integer.toString(invoicesSize));
-
             }
         }
     };
@@ -119,17 +116,10 @@ public class PatientProfileActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    protected void onStop() {
-//        unregisterReceiver(receiver);
-//
-//        super.onStop();
-//    }
-
     @Override
     protected void onDestroy() {
         unregisterReceiver(receiver);
-
+        stopService(new Intent(getBaseContext(), LoadInvoicesService.class));
         super.onDestroy();
     }
 }

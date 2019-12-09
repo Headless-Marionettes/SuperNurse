@@ -9,15 +9,17 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.example.supernurse.models.Invoice;
+
 import java.util.List;
 
 
-public class InvoicesArrayAdapter extends ArrayAdapter<String> {
+public class InvoicesArrayAdapter extends ArrayAdapter<Invoice> {
 
     private final Context context;
-    private final List<String> invoices;
+    private final List<Invoice> invoices;
 
-    public InvoicesArrayAdapter(@NonNull Context context, @NonNull List<String> objects) {
+    public InvoicesArrayAdapter(@NonNull Context context, @NonNull List<Invoice> objects) {
         super(context, R.layout.invoice_row, objects);
 
         this.context = context;
@@ -36,7 +38,7 @@ public class InvoicesArrayAdapter extends ArrayAdapter<String> {
         TextView textViewInvoice = (TextView) rowView.findViewById(R.id.invoiceId);
 
         //Assigning Invoices data to UI elements
-        textViewInvoice.setText(invoices.get(position));
+        textViewInvoice.setText(invoices.get(position).getName());
 
         return rowView;
     }

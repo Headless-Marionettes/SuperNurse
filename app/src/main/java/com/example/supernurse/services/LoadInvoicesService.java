@@ -6,11 +6,22 @@ import android.os.AsyncTask;
 import android.os.IBinder;
 import android.widget.Toast;
 
+import com.example.supernurse.models.Invoice;
+
+import java.io.Serializable;
+
 public class LoadInvoicesService extends Service {
     public LoadInvoicesService() {
     }
 
-    public static final String INFO_INTENT = "loadPDF";
+    DoBackgroundTask mTask;
+
+
+    private static String info_intent = "loadPDF";
+
+    public static String getInfo_intetn() {
+        return info_intent;
+    }
 
     @Override
     public IBinder onBind(Intent arg0) {
@@ -21,15 +32,17 @@ public class LoadInvoicesService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
+        info_intent = intent.getStringExtra("info_intent");
 
         try {
-            new DoBackgroundTask().execute(
-                    new String("Invoice 1"),
-                    new String("Invoice 2"),
-                    new String("Invoice 3"),
-                    new String("Invoice 4"),
-                    new String("Invoice 5"),
-                    new String("Invoice 6"));
+            mTask = new DoBackgroundTask();
+            mTask.execute(
+                    new Invoice("Invoice 1", "https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf"),
+                    new Invoice("Invoice 2", "https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf"),
+                    new Invoice("Invoice 3", "https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf"),
+                    new Invoice("Invoice 4", "https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf"),
+                    new Invoice("Invoice 5", "https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf"),
+                    new Invoice("Invoice 6", "https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -39,20 +52,24 @@ public class LoadInvoicesService extends Service {
         // stopped, so return sticky.
 //        return START_STICKY;
 
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        if (mTask != null) {
+            mTask.cancel(true);
+        }
         Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
+
+        super.onDestroy();
     }
 
 
-    private class DoBackgroundTask extends AsyncTask<String, Void, Void> {
+    private class DoBackgroundTask extends AsyncTask<Serializable, Void, Void> {
 
         @Override
-        protected Void doInBackground(String... invoices) {
+        protected Void doInBackground(Serializable... invoices) {
             int count = invoices.length;
 
             for (int i = 0; i < count; i++) {
@@ -65,8 +82,8 @@ public class LoadInvoicesService extends Service {
                 }
 
                 Intent broadcastIntent = new Intent();
-                broadcastIntent.setAction(INFO_INTENT);
-                broadcastIntent.putExtra(INFO_INTENT, invoices[i]);
+                broadcastIntent.setAction(info_intent);
+                broadcastIntent.putExtra(info_intent, invoices[i]);
 
                 //broadcasting the intent to a receiver
                 sendBroadcast(broadcastIntent);

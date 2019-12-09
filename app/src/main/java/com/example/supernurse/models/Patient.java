@@ -20,7 +20,7 @@ public class Patient implements Serializable {
 
     String _id;
 
-    ArrayList<String> invoices;
+    ArrayList<Invoice> invoices;
 
 
     public Patient() {
@@ -104,11 +104,11 @@ public class Patient implements Serializable {
         this.emergency_contact = emergencyContact;
     }
 
-    public ArrayList<String> getInvoices() {
+    public ArrayList<Invoice> getInvoices() {
         return invoices;
     }
 
-    public void addInvoice(String invoice) {
+    public void addInvoice(Invoice invoice) {
         invoices.add(invoice);
     }
 }

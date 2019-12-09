@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.supernurse.models.Invoice;
 import com.example.supernurse.models.Patient;
 
 public class PatientViewModel extends ViewModel {
@@ -22,7 +23,7 @@ public class PatientViewModel extends ViewModel {
 
     }
 
-    public void addInvoice(String inv) {
+    public void addInvoice(Invoice inv) {
         mPatient.getValue().addInvoice(inv);
         mPatient.postValue(mPatient.getValue());
     }
