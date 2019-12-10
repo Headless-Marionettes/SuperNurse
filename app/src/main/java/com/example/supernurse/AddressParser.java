@@ -36,7 +36,7 @@ public class AddressParser extends AsyncTask<Object, Void, String> {
             mapLinearLayout = (LinearLayout) objects[3];
 
             Geocoder geocoder = new Geocoder(context, Locale.getDefault());
-            addresses  = geocoder.getFromLocationName("8 Woodhall Rd, Markham, Canada", 1);
+            addresses  = geocoder.getFromLocationName(addressString, 1);
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
