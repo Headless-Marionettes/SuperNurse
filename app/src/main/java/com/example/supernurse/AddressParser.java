@@ -23,7 +23,7 @@ public class AddressParser extends AsyncTask<Object, Void, String> {
     private FragmentActivity context;
     private LinearLayout mapLinearLayout;
 
-    List<Address> addresses;
+    List<Address> addresses = null;
 
     protected String doInBackground(Object... objects) {
 
@@ -49,13 +49,16 @@ public class AddressParser extends AsyncTask<Object, Void, String> {
 
     protected void onPostExecute(String responseData) {
 
-        // Add a marker in Sydney and move the camera
-        LatLng marker = new LatLng(addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
-        mMap.addMarker(new MarkerOptions().position(marker).title(addressString));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
+        if (addresses != null)
+        {
+            // Add a marker in Sydney and move the camera
+            LatLng marker = new LatLng(addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
+            mMap.addMarker(new MarkerOptions().position(marker).title(addressString));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
 
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
-        mapLinearLayout.setVisibility(View.VISIBLE);
+            mapLinearLayout.setVisibility(View.VISIBLE);
+        }
     }
 }
