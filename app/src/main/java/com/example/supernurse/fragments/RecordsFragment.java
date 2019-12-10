@@ -51,7 +51,7 @@ public class RecordsFragment extends Fragment {
         textView = root.findViewById(R.id.text_records);
 
         Patient patient = patientViewModel.getPatient().getValue();
-        textView.setText(patient.getFirst_name() + " RECORDS");
+        textView.setText(patient.getFirst_name() + "'s Records");
         getRecordsList(patient.get_id());
 
         return root;
