@@ -3,11 +3,13 @@ package com.example.supernurse.fragments;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -17,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.supernurse.AddressParser;
 import com.example.supernurse.R;
 import com.example.supernurse.models.Patient;
 import com.example.supernurse.view_models.PatientViewModel;
@@ -39,6 +42,7 @@ public class ProfileFragment extends Fragment implements OnMapReadyCallback {
     private PatientViewModel patientViewModel;
     private GoogleMap mMap;
     private TextView emergencyAddress;
+    private LinearLayout mapLinearLayout;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -51,6 +55,8 @@ public class ProfileFragment extends Fragment implements OnMapReadyCallback {
 
         SupportMapFragment mapFragment = (SupportMapFragment)getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        mapLinearLayout = root.findViewById(R.id.map_linear_layout);
 
 
         final TextView patientFullName = root.findViewById(R.id.patient_full_name);
@@ -86,21 +92,8 @@ public class ProfileFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        List<Address> addresses = new ArrayList<Address>();
-        try
-        {
-            Geocoder geocoder = new Geocoder(requireActivity(), Locale.getDefault());
-            addresses = geocoder.getFromLocationName(emergencyAddress.getText().toString(), 1);
-        }catch ( IOException ex) {
-            ex.printStackTrace();
-        }
 
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
-        mMap.addMarker(new MarkerOptions().position(sydney).title(emergencyAddress.getText().toString()));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+        AsyncTask parseAddressTask = new AddressParser();
+        parseAddressTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mMap, emergencyAddress.getText().toString(), requireActivity(), mapLinearLayout);
     }
 }

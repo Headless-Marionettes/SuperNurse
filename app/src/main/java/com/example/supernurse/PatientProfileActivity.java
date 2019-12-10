@@ -67,11 +67,11 @@ public class PatientProfileActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-       // if (thePatient.getInvoices().size() == 0) {
+        if (thePatient.getInvoices().size() == 0) {
         Intent serviceIntent =  new Intent(getBaseContext(), LoadInvoicesService.class);
         serviceIntent.putExtra("info_intent", thePatient.get_id());
         startService(serviceIntent);
-     //   }
+        }
     }
 
     public BroadcastReceiver receiver = new BroadcastReceiver() {
