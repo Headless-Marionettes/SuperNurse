@@ -74,6 +74,8 @@ public class NewRecordActivity extends AppCompatActivity implements TextWatcher{
         respiratoryText.setBackgroundTintList(getResources().getColorStateList(R.color.colorAccent));
         bloodOxygenText.setBackgroundTintList(getResources().getColorStateList(R.color.colorAccent));
         heartBeatText.setBackgroundTintList(getResources().getColorStateList(R.color.colorAccent));
+
+        errorText.setVisibility(View.INVISIBLE);
     }
 
     public void addReportPressed(View view) {
