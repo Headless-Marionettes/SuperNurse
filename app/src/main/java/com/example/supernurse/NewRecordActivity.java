@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -29,7 +30,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NewRecordActivity extends AppCompatActivity {
+public class NewRecordActivity extends AppCompatActivity implements TextWatcher{
 
     public static final String TAG = "AddNewRecord";
 
@@ -40,6 +41,8 @@ public class NewRecordActivity extends AppCompatActivity {
     private EditText bloodOxygenText;
     private EditText heartBeatText;
 
+    private TextView errorText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,10 +52,28 @@ public class NewRecordActivity extends AppCompatActivity {
         respiratoryText = findViewById(R.id.respiratory_text);
         bloodOxygenText = findViewById(R.id.blood_oxygen_text);
         heartBeatText = findViewById(R.id.heart_beat_text);
+        errorText = findViewById(R.id.new_record_error);
+
+        bloodPressureText.addTextChangedListener(this);
+        respiratoryText.addTextChangedListener(this);
+        bloodOxygenText.addTextChangedListener(this);
+        heartBeatText.addTextChangedListener(this);
 
         patientId = getIntent().getStringExtra("patientId");
+    }
 
+    @Override
+    public void afterTextChanged(Editable s) {}
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        bloodPressureText.setBackgroundTintList(getResources().getColorStateList(R.color.colorAccent));
+        respiratoryText.setBackgroundTintList(getResources().getColorStateList(R.color.colorAccent));
+        bloodOxygenText.setBackgroundTintList(getResources().getColorStateList(R.color.colorAccent));
+        heartBeatText.setBackgroundTintList(getResources().getColorStateList(R.color.colorAccent));
     }
 
     public void addReportPressed(View view) {
@@ -128,6 +149,19 @@ public class NewRecordActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+        else {
+            errorText.setVisibility(View.VISIBLE);
+            setRedIfEmpty(bloodPressureText);
+            setRedIfEmpty(respiratoryText);
+            setRedIfEmpty(bloodOxygenText);
+            setRedIfEmpty(heartBeatText);
+        }
+    }
+
+    protected void setRedIfEmpty(EditText view) {
+        if ((view.getText().toString()).equals("")) {
+            view.setBackgroundTintList(getResources().getColorStateList(R.color.colorError));
         }
     }
 
