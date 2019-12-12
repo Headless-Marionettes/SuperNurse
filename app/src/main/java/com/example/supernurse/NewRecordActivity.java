@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -49,6 +51,8 @@ public class NewRecordActivity extends AppCompatActivity {
         heartBeatText = findViewById(R.id.heart_beat_text);
 
         patientId = getIntent().getStringExtra("patientId");
+
+
     }
 
     public void addReportPressed(View view) {
@@ -58,69 +62,72 @@ public class NewRecordActivity extends AppCompatActivity {
         String bloodOxygen = bloodOxygenText.getText().toString();
         String heartBeat = heartBeatText.getText().toString();
 
-        try {
-            //create body for the request
+        if (!bloodPressure.equals("") && !respiratory.equals("") && !bloodOxygen.equals("") && !heartBeat.equals("")) {
+            try {
+                //create body for the request
 
-            LocalDateTime date = LocalDateTime.now();
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            String formattedDate = dateFormatter.format(date);
+                LocalDateTime date = LocalDateTime.now();
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                String formattedDate = dateFormatter.format(date);
 
-            JSONObject jsonBody = new JSONObject();
-            jsonBody.put("date", formattedDate);
-            jsonBody.put("blood_pressure", bloodPressure);
-            jsonBody.put("respiratory_rate", respiratory);
-            jsonBody.put("blood_oxygen_level", bloodOxygen);
-            jsonBody.put("heart_beat_rate", heartBeat);
-            final String mRequestBody = jsonBody.toString();
+                JSONObject jsonBody = new JSONObject();
+                jsonBody.put("date", formattedDate);
+                jsonBody.put("blood_pressure", bloodPressure);
+                jsonBody.put("respiratory_rate", respiratory);
+                jsonBody.put("blood_oxygen_level", bloodOxygen);
+                jsonBody.put("heart_beat_rate", heartBeat);
+                final String mRequestBody = jsonBody.toString();
 
-            SharedPreferences myPref = getApplication().getSharedPreferences("UserSharedPreferences", getApplication().MODE_PRIVATE);
-            final String token = "JWT " + myPref.getString("token", "");
+                SharedPreferences myPref = getApplication().getSharedPreferences("UserSharedPreferences", getApplication().MODE_PRIVATE);
+                final String token = "JWT " + myPref.getString("token", "");
 
-            String url = "https://super-nurse.herokuapp.com/patients/" + patientId + "/records";
-            JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    System.out.println(mRequestBody);
-                    finish();
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e("ERROR", "No RESPONSE");
-
-                }
-            }) {
-                @Override
-                public Map getHeaders() throws AuthFailureError {
-                    HashMap headers = new HashMap();
-                    headers.put("Authorization", token);
-                    return headers;
-                }
-                @Override
-                public String getBodyContentType() {
-                    return "application/json; charset=utf-8";
-                }
-
-                @Override
-                public byte[] getBody() {
-                    try {
-                        return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
-                    } catch (UnsupportedEncodingException uee) {
-                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
-                        return null;
+                String url = "https://super-nurse.herokuapp.com/patients/" + patientId + "/records";
+                JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println(mRequestBody);
+                        finish();
                     }
-                }
-            };
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("ERROR", "No RESPONSE");
+
+                    }
+                }) {
+                    @Override
+                    public Map getHeaders() throws AuthFailureError {
+                        HashMap headers = new HashMap();
+                        headers.put("Authorization", token);
+                        return headers;
+                    }
+
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/json; charset=utf-8";
+                    }
+
+                    @Override
+                    public byte[] getBody() {
+                        try {
+                            return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
+                        } catch (UnsupportedEncodingException uee) {
+                            VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
+                            return null;
+                        }
+                    }
+                };
 
 
-            // Set the tag on the request.
-            postRequest.setTag(TAG);
+                // Set the tag on the request.
+                postRequest.setTag(TAG);
 
-            // Add the request to the RequestQueue.
-            ServerRequestQueue.getInstance(NewRecordActivity.this).addToRequestQueue(postRequest);
+                // Add the request to the RequestQueue.
+                ServerRequestQueue.getInstance(NewRecordActivity.this).addToRequestQueue(postRequest);
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
