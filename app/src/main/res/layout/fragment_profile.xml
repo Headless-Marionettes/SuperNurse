@@ -42,7 +42,6 @@
                     android:layout_marginStart="@dimen/mediumSpacing"
                     android:layout_weight="1"
                     android:maxLines="3"
-                    android:text="Lololo dsdssj sdbcsjdbcjs"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/activityTitle"

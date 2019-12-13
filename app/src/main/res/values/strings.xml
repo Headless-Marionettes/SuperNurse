@@ -19,4 +19,13 @@
     <string name="family_contact_email">Email:</string>
     <string name="family_contact_phone">Phone number:</string>
     <string name="family_contact_address">Address:</string>
+
+    <!--New Record page-->
+    <string name="new_record_title">Enter new record data</string>
+    <string name="enter_blood_pressure">Enter blood pressure*</string>
+    <string name="enter_respiratory">Enter respiratory rate*</string>
+    <string name="enter_blood_oxygen">Enter blood oxygen level*</string>
+    <string name="enter_heart_rate">Enter heart beat rate*</string>
+    <string name="new_record_error">All data fields are required</string>
+    <string name="add_record_button">Add Record</string>
 </resources>

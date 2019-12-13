@@ -13,14 +13,14 @@
         android:gravity="center_horizontal"
         android:padding="16dp"
         android:textSize="@dimen/activityTitle"
-        android:text="Enter new record data"/>
+        android:text="@string/new_record_title"/>
 
     <EditText
         android:id="@+id/blood_pressure_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:hint="Enter blood pressure*"
+        android:hint="@string/enter_blood_pressure"
         android:digits="0123456789/"
         android:backgroundTint="@color/colorAccent"/>
 
@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:hint="Enter respiratory rate*"
+        android:hint="@string/enter_respiratory"
         android:inputType="number"
         android:backgroundTint="@color/colorAccent"/>
 
@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:hint="Enter blood oxygen level*"
+        android:hint="@string/enter_blood_oxygen"
         android:inputType="number"
         android:backgroundTint="@color/colorAccent"/>
 
@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:hint="Enter heart beat rate*"
+        android:hint="@string/enter_heart_rate"
         android:inputType="number"
         android:backgroundTint="@color/colorAccent"/>
 
@@ -56,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="All data fields are required"
+        android:text="@string/new_record_error"
         android:layout_marginTop="8dp"
         android:textColor="@color/colorError"
         android:visibility="invisible"/>
@@ -66,7 +66,7 @@
         android:layout_width="250dp"
         android:layout_height="54dp"
         android:onClick="addReportPressed"
-        android:text="Add Record"
+        android:text="@string/add_record_button"
         android:textSize="18sp"
         android:theme="@style/AppTheme.Button"
         android:layout_marginTop="16dp"
